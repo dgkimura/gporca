@@ -296,7 +296,7 @@ CPhysicalHashJoin::PdsMatch
 			GPOS_ASSERT(0 == ulSourceChildIndex);
 
 			// outer child is replicated, replicate inner child too in order to preserve correctness of semi-join
-			return GPOS_NEW(mp) CDistributionSpecReplicated();
+			return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::EReplicatedType::ErtStrict);
 	}
 }
 
@@ -416,7 +416,7 @@ CPhysicalHashJoin::PdsRequiredSingleton
 	CDistributionSpec *pdsFirst = CDrvdPropPlan::Pdpplan((*pdrgpdpCtxt)[0])->Pds();
 	GPOS_ASSERT(NULL != pdsFirst);
 
-	if (CDistributionSpec::EdtUniversal == pdsFirst->Edt())
+	if (CDistributionSpec::EdtUniversal == pdsFirst->Edt() || CDistributionSpec::EdtTaintedReplicated == pdsFirst->Edt())
 	{
 		// first child is universal, request second child to execute on a single host to avoid duplicates
 		return GPOS_NEW(mp) CDistributionSpecSingleton();
@@ -473,7 +473,7 @@ CPhysicalHashJoin::PdsRequiredReplicate
 	if (1 == child_index)
 	{
 		// require inner child to be replicated
-		return GPOS_NEW(mp) CDistributionSpecReplicated();
+		return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::EReplicatedType::ErtGeneral);
 	}
 	GPOS_ASSERT(0 == child_index);
 
@@ -500,7 +500,7 @@ CPhysicalHashJoin::PdsRequiredReplicate
 	}
 
 	// otherwise, require second child to deliver non-singleton distribution
-	GPOS_ASSERT(CDistributionSpec::EdtReplicated == pdsInner->Edt());
+	GPOS_ASSERT(CDistributionSpec::EdtReplicated == pdsInner->Edt() || CDistributionSpec::EdtTaintedReplicated == pdsInner->Edt());
 	return GPOS_NEW(mp) CDistributionSpecNonSingleton();
 }
 
@@ -700,7 +700,7 @@ CPhysicalHashJoin::PdsRequired
 		{
 			return PdsPassThru(mp, exprhdl, pdsInput, child_index);
 		}
-		return GPOS_NEW(mp) CDistributionSpecReplicated();
+		return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::EReplicatedType::ErtStrict);
 	}
 
 	const ULONG ulHashDistributeRequests = m_pdrgpdsRedistributeRequests->Size();

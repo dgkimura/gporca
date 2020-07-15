@@ -4578,7 +4578,8 @@ CUtils::FDuplicateHazardMotion
 
 	BOOL fReplicatedInput =
 		CDistributionSpec::EdtReplicated == edtChild ||
-		CDistributionSpec::EdtUniversal == edtChild;
+		CDistributionSpec::EdtUniversal == edtChild ||
+		CDistributionSpec::EdtTaintedReplicated == edtChild;
 
 	return fReplicatedInput;
 }
