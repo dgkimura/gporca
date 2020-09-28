@@ -149,7 +149,7 @@ CPhysicalInnerIndexNLJoin::PdsRequired
 	}
 
 	// otherwise, require outer child to be replicated
-	return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::EReplicatedType::ErtStrict);
+	return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::ErtStrict);
 }
 
 

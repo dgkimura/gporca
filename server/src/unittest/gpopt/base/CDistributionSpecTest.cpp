@@ -175,7 +175,7 @@ CDistributionSpecTest::EresUnittest_Replicated()
 	CAutoOptCtxt aoc(mp, &mda, NULL /*pceeval*/, CTestUtils::GetCostModel(mp));
 
 	// basic tests with replicated distributions
-	CDistributionSpecReplicated *pdsreplicated = GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::EReplicatedType::ErtStrict);
+	CDistributionSpecReplicated *pdsreplicated = GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::ErtStrict);
 	
 	GPOS_ASSERT(pdsreplicated->FSatisfies(pdsreplicated));
 	GPOS_ASSERT(pdsreplicated->Matches(pdsreplicated));
@@ -241,7 +241,7 @@ CDistributionSpecTest::EresUnittest_Singleton()
 				!pdssSegment->FSatisfies(pdssMaster));
 
 	// singleton and replicated
-	CDistributionSpecReplicated *pdsreplicated = GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::EReplicatedType::ErtStrict);
+	CDistributionSpecReplicated *pdsreplicated = GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::ErtStrict);
 	
 	GPOS_ASSERT(pdsreplicated->FSatisfies(pdssSegment));
 	GPOS_ASSERT(!pdsreplicated->FSatisfies(pdssMaster));
@@ -311,7 +311,7 @@ CDistributionSpecTest::EresUnittest_Universal()
 	GPOS_ASSERT(pdsuniversal->FSatisfies(pdssSegment));
 
 	// universal and replicated
-	CDistributionSpecReplicated *pdsreplicated = GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::EReplicatedType::ErtStrict);
+	CDistributionSpecReplicated *pdsreplicated = GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::ErtStrict);
 
 	GPOS_ASSERT(pdsuniversal->FSatisfies(pdsreplicated));
 
@@ -441,7 +441,7 @@ CDistributionSpecTest::EresUnittest_Hashed()
 	GPOS_ASSERT(!pdssSegment->Matches(pdshashed1));
 
 	// hashed and replicated
-	CDistributionSpecReplicated *pdsreplicated = GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::EReplicatedType::ErtStrict);
+	CDistributionSpecReplicated *pdsreplicated = GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::ErtStrict);
 	
 	GPOS_ASSERT(pdsreplicated->FSatisfies(pdshashed1));
 	GPOS_ASSERT(!pdshashed1->FSatisfies(pdsreplicated));

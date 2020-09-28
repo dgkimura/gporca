@@ -306,7 +306,7 @@ CPhysicalJoin::PdsRequired
 		{
 			return PdsPassThru(mp, exprhdl, pdsRequired, child_index);
 		}
-		return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::EReplicatedType::ErtGeneral);
+		return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::ErtGeneral);
 	}
 
 	if (1 == child_index)
@@ -328,7 +328,7 @@ CPhysicalJoin::PdsRequired
 		}
 
 		// otherwise, require inner child to be replicated
-		return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::EReplicatedType::ErtGeneral);
+		return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::ErtGeneral);
 	}
 
 	// no distribution requirement on the outer side

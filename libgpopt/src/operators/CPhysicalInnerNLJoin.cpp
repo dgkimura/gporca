@@ -106,7 +106,7 @@ CPhysicalInnerNLJoin::PdsRequired
 		{
 			return PdsPassThru(mp, exprhdl, pdsRequired, child_index);
 		}
-		return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::EReplicatedType::ErtGeneral);
+		return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::ErtGeneral);
 	}
 
 	if (GPOS_FTRACE(EopttraceDisableReplicateInnerNLJOuterChild) || 0 == ulOptReq)
@@ -161,7 +161,7 @@ CPhysicalInnerNLJoin::PdsRequired
 
 	if (0 == child_index)
 	{
-		return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::EReplicatedType::ErtGeneral);
+		return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::ErtGeneral);
 	}
 
 	// compute a matching distribution based on derived distribution of outer child

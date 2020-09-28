@@ -16,7 +16,11 @@ namespace gpopt
 	(
 	 CMemoryPool *mp,
 	 CExpressionHandle &, // exprhdl
-	 CReqdPropPlan *prpp GPOS_UNUSED,
+	 CReqdPropPlan *
+#ifdef GPOS_DEBUG
+	 prpp
+#endif // GPOS_DEBUG
+	 ,
 	 CExpressionArray *pdrgpexpr,
 	 CExpression *pexpr
 	 )
@@ -28,7 +32,7 @@ namespace gpopt
 		GPOS_ASSERT(!GPOS_FTRACE(EopttraceDisableMotions));
 		GPOS_ASSERT(this == prpp->Ped()->PdsRequired() &&
 					"required plan properties don't match enforced distribution spec");
-		GPOS_ASSERT(Ert() != EReplicatedType::ErtTainted);
+		GPOS_ASSERT(Ert() != CDistributionSpecReplicated::ErtTainted);
 
 		if (GPOS_FTRACE(EopttraceDisableMotionBroadcast))
 		{
@@ -53,9 +57,9 @@ namespace gpopt
 	)
 	const
 	{
-		GPOS_ASSERT(Ert() != EReplicatedType::ErtGeneral);
+		GPOS_ASSERT(Ert() != CDistributionSpecReplicated::ErtGeneral);
 
-		if (Ert() == EReplicatedType::ErtTainted)
+		if (Ert() == CDistributionSpecReplicated::ErtTainted)
 		{
 			// TaintedReplicated::FSatisfies logic is similar to Replicated::FSatisifes
 			// except that Replicated can match and satisfy another Replicated Spec.
@@ -81,7 +85,7 @@ namespace gpopt
 					return CDistributionSpecSingleton::PdssConvert(pds)->Est() == CDistributionSpecSingleton::EstSegment;
 			}
 		}
-		else if (Ert() == EReplicatedType::ErtStrict)
+		else if (Ert() == CDistributionSpecReplicated::ErtStrict)
 		{
 			if (Matches(pds))
 			{

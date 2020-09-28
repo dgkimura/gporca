@@ -296,7 +296,7 @@ CPhysicalHashJoin::PdsMatch
 			GPOS_ASSERT(0 == ulSourceChildIndex);
 
 			// outer child is replicated, replicate inner child too in order to preserve correctness of semi-join
-			return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::EReplicatedType::ErtStrict);
+			return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::ErtStrict);
 	}
 }
 
@@ -473,7 +473,7 @@ CPhysicalHashJoin::PdsRequiredReplicate
 	if (1 == child_index)
 	{
 		// require inner child to be replicated
-		return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::EReplicatedType::ErtGeneral);
+		return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::ErtGeneral);
 	}
 	GPOS_ASSERT(0 == child_index);
 
@@ -700,7 +700,7 @@ CPhysicalHashJoin::PdsRequired
 		{
 			return PdsPassThru(mp, exprhdl, pdsInput, child_index);
 		}
-		return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::EReplicatedType::ErtStrict);
+		return GPOS_NEW(mp) CDistributionSpecReplicated(CDistributionSpecReplicated::ErtStrict);
 	}
 
 	const ULONG ulHashDistributeRequests = m_pdrgpdsRedistributeRequests->Size();

@@ -15,7 +15,7 @@ namespace gpopt
 	class CDistributionSpecReplicated : public CDistributionSpec
 	{
 		public:
-			enum class EReplicatedType
+			enum EReplicatedType
 			{
 				ErtStrict,
 				ErtTainted,
@@ -46,11 +46,11 @@ namespace gpopt
 			{
 				switch (m_replicated)
 				{
-					case EReplicatedType::ErtGeneral:
+					case ErtGeneral:
 						return CDistributionSpec::EdtGeneralReplicated;
-					case EReplicatedType::ErtTainted:
+					case ErtTainted:
 						return CDistributionSpec::EdtTaintedReplicated;
-					case EReplicatedType::ErtStrict:
+					case ErtStrict:
 						return CDistributionSpec::EdtReplicated;
 					default:
 						GPOS_ASSERT(!"Replicated type must be General, Tainted, or Strict");
